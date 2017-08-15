@@ -1,0 +1,3 @@
+--ui mocha-ui-exports
+--require ./test/util/apply-test-mode
+--reporter spec

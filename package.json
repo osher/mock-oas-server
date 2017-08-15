@@ -1,0 +1,41 @@
+{
+  "name": "oas-mocker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib",
+  "bin": {
+    "oas-svr": "bin/cli"
+  },
+  "scripts": {
+    "test": "mocha",
+    "prepush": "mocha",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot",
+    "cover-enforce": "node node_modules/istanbul/lib/cli.js check-coverage --function 90 --lines 85 --branches 75"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab:6020/osher/oas-mocker"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osher/oas-mocker/issues"
+  },
+  "homepage": "https://github.com/osher/oas-mocker#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "figlet": "^1.2.0",
+    "log4js": "^2.3.3",
+    "swagger-tools": "^0.10.1",
+    "sway": "^1.0.0",
+    "yargs": "^8.0.2"
+  },
+  "devDependencies": {
+    "istanbul": "*",
+    "mocha": "~2.3.4",
+    "mocha-ui-exports": "^1.0.1",
+    "should": "^11.2.1"
+  },
+  "publishConfig": {
+    "registry": "http://wm-npm.mobimate.com/"
+  }
+}
