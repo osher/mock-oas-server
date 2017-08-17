@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/osher/oas-mocker#readme",
   "dependencies": {
+    "debug": "^3.0.0",
     "express": "^4.15.4",
     "figlet": "^1.2.0",
     "log4js": "^2.3.3",
