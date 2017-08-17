@@ -1,19 +1,9 @@
 var sut = require('../')
 
-module.exports = { 
-  "oas-mocker" : { 
-    //TODO - leave only the right one...
-    "should be a module object" : null,
-    "should be a factory function that names X arguments - ????" : null,
-    "should be a strategy function that names X arguments - ??? " : null,
-    //TODOEnd
-    "API" : { 
-      ".<member>(param, param)" : null
-    },
-    ".<member>(param, param)" : {
-      "when used with ..." :  {
-        "should ..." : null
-      }
-    }
+module.exports = 
+{ 'oas-mocker': 
+  { 'should be a factory function that names 1 arguments - ctx':
+      () => Should(sut).be.a.Function().have.property('length', 1)
+  , 'when provided with a valid context with logger and args':
   }
 }
