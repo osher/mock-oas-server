@@ -3,27 +3,27 @@ var fs    = require('fs')
   , args  = require('../lib/args')
   ;
 module.exports = 
-{ "lib/args" : 
-  { ".spec" : 
-    { "should correspond to switch -s" :
+{ 'lib/args' : 
+  { '.spec' : 
+    { 'should correspond to switch -s' :
       function() {
-          var value = "TEST" + Math.random()
-            , args = runWith(["-s", value])
+          var value = 'TEST' + Math.random()
+            , args = runWith(['-s', value])
             ;
           args.should.have.property('spec',value)
           args.should.have.property('s',value)
           runWith.exit.should.be.False()
       }
-    , "should correspond to switch --spec" :
+    , 'should correspond to switch --spec' :
       function() {
-          var value = "TEST" + Math.random()
-            , args = runWith(["--spec", value])
+          var value = 'TEST' + Math.random()
+            , args = runWith(['--spec', value])
             ;
           args.should.have.property('spec',value)
           args.should.have.property('s',value)
           runWith.exit.should.be.False()
       }
-    , "should be a mandatory argument" :
+    , 'should be a mandatory argument' :
       function() {
           var value = process.cwd()
             , args = runWith([])
@@ -32,51 +32,73 @@ module.exports =
           runWith.logged.length.should.be.greaterThan(0)
       }
     }
-  , ".port" : 
-    { "should correspond to switch -p" : 
-      function() {
-          var value = parseInt( Math.random() * 10000)
-            , args = runWith(["-s", "path/to/spec", "-p", value])
-            ;
-          args.should.have.property('port',value);
-          args.should.have.property('p',value)
+  , '.port':      optionalSwitchTest(
+      { shortKey: 'p'
+      , longKey:  'port'
+      , value:    parseInt( Math.random() * 10000) 
+      , dflt:     3000
       }
-    , "should correspond to switch --port" : 
-      function() {
-          var value = "TEST" + Math.random()
-            , args = runWith(["-s", "path/to/spec", "--port", value])
-            ;
-          args.should.have.property('port',value);              
-          args.should.have.property('p',value)
-          
-      }    
-    }
-  , ".logLevel" : 
-    { "should correspond to switch -l" : 
-      function() {
-          var value = "WARN"
-            , args = runWith(["-s", "path/to/spec", "-l", value])
-            ;
-          args.should.have.property('logLevel',value);
-          args.should.have.property('l',value)
-      }    
-    , "should correspond to switch --logLevel" : 
-      function() {
-          var value = "WARN"
-            , args = runWith(["-s", "path/to/spec", "--logLevel", value])
-            ;
-          args.should.have.property('logLevel',value);
-          args.should.have.property('l',value)
-      }    
-    , "should default to INFO" : 
-      function() {
-          var args = runWith(["-s", "path/to/spec", ]);
-          
-          args.should.have.property('logLevel',"INFO");
-          args.should.have.property('l',"INFO")
+    )
+  , '.hostname':  optionalSwitchTest(
+      { shortKey: 'n'
+      , longKey:  'hostname'
+      , value:    'TEST' + Math.random() 
+      , dflt:     'localhost'
       }
-    }
+    )
+  , '.managementPath': optionalSwitchTest(
+      { shortKey: 'm'
+      , longKey:  'management-path'
+      , value:    '/manage/' + Math.random() 
+      , dflt:     '/oas'
+      }
+    )
+  , '.shutdownGrace': optionalSwitchTest(
+      { shortKey: 'g'
+      , longKey:  'shutdown-grace'
+      , value:    parseInt( Math.random() * 10000) 
+      , dflt:     1500
+      }
+    )
+  , '.logLevel':  optionalSwitchTest(
+      { shortKey: 'l'
+      , longKey:  'logLevel'
+      , value:    'WARN'
+      , dflt:     'INFO'
+      }
+    )
   }
+}
+
+function optionalSwitchTest({shortKey, longKey, value, dflt}) {
+    const suite = { 
+      ['should correspond to switch -' + shortKey]: 
+      function() {
+          var args = runWith(['-s', 'path/to/spec', '-' + shortKey, value])
+            ;
+          args.should.have.property(longKey,value);
+          args.should.have.property(shortKey,value)
+      }
+    , ['should correspond to switch --' + longKey]: 
+      function() {
+          var args = runWith(['-s', 'path/to/spec', '--' + longKey, String(value)])
+            ;
+          args.should.have.property(longKey,value);              
+          args.should.have.property(shortKey,value)
+          
+      }
+    }
+    
+    if (dflt) {
+        suite['should default to ' + dflt ] = function() {
+            var args = runWith(['-s', 'path/to/spec', ]);
+            
+            args.should.have.property(longKey, dflt);
+            args.should.have.property(shortKey, dflt)
+        }
+    }
+    
+    return suite
 }
 
 function runWith(argv) {
