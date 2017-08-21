@@ -41,6 +41,10 @@ Options:
   -h, --help             you're looking at it...
 ```
 
+## Architecture Overview
+Mind the Legend on the bottom-left corner.
+![Architecture Overview](https://docs.google.com/drawings/d/1QfYzgsRO_GYiZnGpqIVwnemSxC4xpMdPU2sELx6g-AA/pub?w=1152&h=791 "Architecture Overview")
+
 # Notes
 ## Future
  - Response setting API - An idiomatic operation that accepts a structure that maps paths + verbs to array of response descriptors
