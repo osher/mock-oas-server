@@ -1,17 +1,14 @@
 # oas-mocker
 
-## Overview
-
-The server can play in dev env the part of integration partners who publish their API using open-api spec (fka swagger).
+A CLI to run a web server that can play in dev env the part of integration partners who publish their API using open-api spec (fka swagger).
 
 The server is a CLI tool (may be installed globally) that is run with a swagger document (which may be in a number of requirable formats: JSON, JS, YAML)
 
-Once started, the server will reply to any path + verb pair (which basically correspond to operation-id) with a prepared reply based on the success response for that operation as stated in swagger of the integration partners.
-So - once started - you’re ready for integration.
+Once started successfully, the server will reply to any path + verb pair (which basically correspond to operation-id) with either a preset reply for this path + verb pair, falling back to a generated reply based on the success response for that operation as described in the open-api-spec of the integration partners.
+Thus - once started - you’re ready for integration.
 
-Next - developers can challenge their integration by using a special API to set the server on runtime to return whatever responses they need for whatever operation.
-
-Reply management API is a post to a configurable path.
+Next - developers can challenge their integration by using a special API to set the server on runtime to return whatever responses they need for whatever operation (WIP)
+Preset Reply management API is a post to a configurable path.
 
 
 ## Installation
