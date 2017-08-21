@@ -43,7 +43,7 @@ Options:
 
 ## Architecture Overview
 Mind the Legend on the bottom-left corner.
-![Architecture Overview](https://docs.google.com/drawings/d/1QfYzgsRO_GYiZnGpqIVwnemSxC4xpMdPU2sELx6g-AA/pub?w=1152&h=791 "Architecture Overview")
+![Architecture Overview](https://docs.google.com/drawings/d/1OLpvIB81FFgSPqnhcRSTu15PK7P79GV9AnzbiNX0F6U/pub?w=1152&h=791 "Architecture Overview")
 
 # Notes
 ## Future
