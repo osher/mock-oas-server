@@ -13,12 +13,13 @@ module.exports =
   , 'when provided with valid context with arguments and logger' : block(() => {
         let app
         return {
-          before: () => sut(
+          beforeAll: () => sut(
             { args: 
               args(
                 { argv: ['/path/to/node', '/path/to/cli', '-s', 'test/fixtures/petstore.oas.yaml'] }
-              , { log: (msg) => {} }
+              , { log: (msg) => {} } //mock console
               )
+            , logger: { of: n => ({}) }
             }
           ).then( a => app = a )
         , 'should return an express application':

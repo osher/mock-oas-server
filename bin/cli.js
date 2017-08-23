@@ -1,6 +1,7 @@
 const args    = require('../lib/args')(process, console.log)
-const log     = 
-  require('../lib/logger')
+const logger  = require('../lib/logger')
+const log     =
+  logger
     .configure(
       { appenders:  { stdout:  { type: "console" } }
       , categories: { default: { appenders: [ 'stdout' ], level: args.logLevel } }
@@ -11,7 +12,7 @@ const banners = require('../lib/cli-banners')(log)
 banners.hello()
 log.debug('accepted args', args);
 
-const svr = require('../lib')({args, log})
+const svr = require('../lib')({args, logger})
   .on('started', address => log.info('server started', address))
   .on('error', banners.error)
   .on('fatal', err => { 
