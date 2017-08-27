@@ -1,0 +1,71 @@
+<testsuite name="Mocha Tests" tests="69" failures="0" errors="0" skipped="1" timestamp="Wed, 23 Aug 2017 13:30:47 GMT" time="0.476">
+<testcase classname="lib/args .spec" name="should correspond to switch -s" time="0.069"/>
+<testcase classname="lib/args .spec" name="should correspond to switch --spec" time="0.001"/>
+<testcase classname="lib/args .spec" name="should be a mandatory argument" time="0.026"/>
+<testcase classname="lib/args .port" name="should correspond to switch -p" time="0.001"/>
+<testcase classname="lib/args .port" name="should correspond to switch --port" time="0"/>
+<testcase classname="lib/args .port" name="should default to 3000" time="0.001"/>
+<testcase classname="lib/args .hostname" name="should correspond to switch -n" time="0.001"/>
+<testcase classname="lib/args .hostname" name="should correspond to switch --hostname" time="0.001"/>
+<testcase classname="lib/args .hostname" name="should default to localhost" time="0.001"/>
+<testcase classname="lib/args .managementPath" name="should correspond to switch -m" time="0.001"/>
+<testcase classname="lib/args .managementPath" name="should correspond to switch --management-path" time="0.001"/>
+<testcase classname="lib/args .managementPath" name="should default to /oas" time="0"/>
+<testcase classname="lib/args .shutdownGrace" name="should correspond to switch -g" time="0.001"/>
+<testcase classname="lib/args .shutdownGrace" name="should correspond to switch --shutdown-grace" time="0.001"/>
+<testcase classname="lib/args .shutdownGrace" name="should default to 1500" time="0"/>
+<testcase classname="lib/args .logLevel" name="should correspond to switch -l" time="0.001"/>
+<testcase classname="lib/args .logLevel" name="should correspond to switch --logLevel" time="0.001"/>
+<testcase classname="lib/args .logLevel" name="should default to INFO" time="0.001"/>
+<testcase classname="lib/model/can-mgr" name="should be a factory function that expects one argument - options" time="0.001"/>
+<testcase classname="lib/model/can-mgr when invoked with invalid options should throw sinchronously a friendly error" name="no context" time="0.003"/>
+<testcase classname="lib/model/can-mgr when invoked with invalid options should throw sinchronously a friendly error" name="missing sway" time="0"/>
+<testcase classname="lib/model/can-mgr when invoked with invalid options should throw sinchronously a friendly error" name="missing logger" time="0"/>
+<testcase classname="lib/model/can-mgr when invoked with invalid options should throw sinchronously a friendly error" name="invalid sway" time="0"/>
+<testcase classname="lib/model/can-mgr when invoked with invalid options should throw sinchronously a friendly error" name="invalid logger" time="0"/>
+<testcase classname="lib/model/can-mgr when invoked with invalid options should throw sinchronously a friendly error" name="provided with a can with invalid descriptor for one operation" time="0.001"/>
+<testcase classname="lib/model/can-mgr when invoked valid options {logger, sway}" name="should not fail" time="0"/>
+<testcase classname="lib/model/can-mgr when invoked valid options {logger, sway}" name="should return an initiated mgr instance with 2 apis: .response(..), and .set(..)" time="0"/>
+<testcase classname="lib/model/can-mgr when invoked with valid options providing an initial can and .response(key) called with operation that exists in the provided sway" name="should return the response from the cans initiation" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with descriptor for an operation not in OAS document" name="should return an error decorated with collection of rejections" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with descriptor for an operation not in OAS document the rejection: " name="should have .operationId as the operationId who's can fails" time="0.001"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with descriptor for an operation not in OAS document the rejection: " name="should have .opDescr as the descriptor that failed" time="0.001"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with descriptor for an operation not in OAS document the rejection: " name="should have .rejection matches /unknown operation/" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with descr.times is not a number" name="should return an error decorated with collection of rejections" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with descr.times is not a number the rejection: " name="should have .operationId as the operationId who's can fails" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with descr.times is not a number the rejection: " name="should have .opDescr as the descriptor that failed" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with descr.times is not a number the rejection: " name="should have .rejection matches /descr.times is not a number/" time="0.001"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with unsupported response type" name="should return an error decorated with collection of rejections" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with unsupported response type the rejection: " name="should have .operationId as the operationId who's can fails" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with unsupported response type the rejection: " name="should have .opDescr as the descriptor that failed" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with unsupported response type the rejection: " name="should have .rejection matches /unsupported response type/" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.status - not a valid http code" name="should return an error decorated with collection of rejections" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.status - not a valid http code the rejection: " name="should have .operationId as the operationId who's can fails" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.status - not a valid http code the rejection: " name="should have .opDescr as the descriptor that failed" time="0.001"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.status - not a valid http code the rejection: " name="should have .rejection matches /provided response.status is not a legal http status/" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.status - not a number" name="should return an error decorated with collection of rejections" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.status - not a number the rejection: " name="should have .operationId as the operationId who's can fails" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.status - not a number the rejection: " name="should have .opDescr as the descriptor that failed" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.status - not a number the rejection: " name="should have .rejection matches /provided response.status is not a legal http status/" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.headers - not an object" name="should return an error decorated with collection of rejections" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.headers - not an object the rejection: " name="should have .operationId as the operationId who's can fails" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.headers - not an object the rejection: " name="should have .opDescr as the descriptor that failed" time="0.001"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with response.headers - not an object the rejection: " name="should have .rejection matches /provided response.headers is not an object/" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with http-header with non-scalar value" name="should return an error decorated with collection of rejections" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with http-header with non-scalar value the rejection: " name="should have .operationId as the operationId who's can fails" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with http-header with non-scalar value the rejection: " name="should have .opDescr as the descriptor that failed" time="0.001"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .set(cansDescr once set with invalid canned-responses with http-header with non-scalar value the rejection: " name="should have .rejection matches /provided an http header with a non-scalar value/" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .response(key) when provided with key that does not match an operation" name="should return null" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .response(key) when provided with key that does not match an operation" name="should not mutate any entry in the can" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .response(key) when provided with a key that matches an operation and there is NO can set for this operation" name="should return null" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .response(key) when provided with a key that matches an operation and there is NO can set for this operation" name="should not mutate any entry in the can" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .response(key) when provided with a key that matches an operation and there is a can set for this operation and there is a responder in the can" name="should return the canned response" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .response(key) when provided with a key that matches an operation and there is a can set for this operation and there is a responder in the can" name="should decrease the .times indicator on the responder" time="0"/>
+<testcase classname="lib/model/can-mgr an initiated mgr insance .response(key) when provided with a key that matches an operation and there is a can set for this operation and there is a responder in the can and the responder is used-up" name="should drop the responder from the can for this operation" time="0"/>
+<testcase classname="lib/model/gen-mgr" name="should be a factory function that expects one argument - options" time="0"/>
+<testcase classname="oas-mocker" name="should be a factory function that names 1 arguments - ctx" time="0"/>
+<testcase classname="oas-mocker when provided with a valid context with logger and args" name="should return an EventEmitter" time="0"><skipped/></testcase>
+<testcase classname="lib/web/server" name="should be a factory function that expects 1 argument" time="0"/>
+<testcase classname="lib/web/server" name="should return a promise" time="0.003"/>
+<testcase classname="lib/web/server when provided with valid context with arguments and logger" name="should return an express application" time="0"/>
+</testsuite>

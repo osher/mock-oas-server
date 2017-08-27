@@ -13,7 +13,7 @@ banners.hello()
 log.debug('accepted args', args);
 
 const svr = require('../lib')({args, logger})
-  .on('started', address => log.info('server started', address))
+  .on('started', banners.up)
   .on('error', banners.error)
   .on('fatal', err => { 
       banners.fatal(err)
@@ -21,8 +21,9 @@ const svr = require('../lib')({args, logger})
   })
 
 
-process.on('SIGINT', shutdown('SIGINT'))
+//process.on('SIGINT', shutdown('SIGINT'))
 process.on('SIGTERM', shutdown('SIGTERM'))
+process.on('message', m => { if ('IPCTERM' == m) shutdown('IPCTERM')() })
 
 function shutdown(signal) {
   return function handleSignal(err) {
@@ -34,8 +35,8 @@ function shutdown(signal) {
       })
       setTimeout(
         () => {
-          log.warn('server did not close timely - I had to kick it :(') 
-          process.exit(1)
+          //log.warn('server did not close timely - I had to kick it :(') 
+          //process.exit(1)
         }
       , args.shutdownGrace
       ).unref()

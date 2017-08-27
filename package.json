@@ -8,9 +8,13 @@
   },
   "scripts": {
     "test": "mocha",
-    "prepush": "mocha",
-    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot",
-    "cover-enforce": "node node_modules/istanbul/lib/cli.js check-coverage --function 90 --lines 85 --branches 75"
+    "e2e": "mocha test-e2e/index",
+    "posttest": "npm run cover",
+    "cover-unit": "istanbul cover --dir ./coverage/unit-test node_modules/mocha/bin/_mocha test -- --reporter dot",
+    "cover-e2e": "env-pass COVER=true node_modules/mocha/bin/mocha test-e2e/index.js --timeout 10000 --reporter dot",
+    "cover-combine": "istanbul report --root ./coverage --dir ./coverage/combined --format html",
+    "cover": "npm run cover-unit && npm run cover-e2e && npm run cover-combine",
+    "postcover": "node node_modules/istanbul/lib/cli.js check-coverage --lines 85 --function 85 --branches 80"
   },
   "repository": {
     "type": "git",
@@ -31,8 +35,11 @@
     "yargs": "^8.0.2"
   },
   "devDependencies": {
+    "env-pass": "^0.6.2",
     "istanbul": "0.x.x",
     "mocha": "~2.3.4",
+    "mocha-e2e": "git+https://github.com/osher/mocha-e2e.git",
+    "mocha-multi": "^0.11.0",
     "mocha-ui-exports": "^1.0.1",
     "mocha-ui-exports-request": "^1.2.0",
     "should": "^11.2.1"

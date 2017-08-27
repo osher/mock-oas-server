@@ -1,25 +1,12 @@
-      
-module.exports = 
-{ 'run as CLI with only with a yaml' : 'skip' || e2eTest(
-    { args: { s: 'test/fixtures/petstore.oas.yaml' } }
-  )
-, 'run in-process with only a yaml as options'
-}
-
-const run = require('child_process').fork
-function e2eTest({args}) {
-    args = Object.keys(args).reduce( (arr, k) => arr.push( k.length > 1 ? "--" + k : k, args[k] ) && arr, [] )
-    let child
-    
-    return {
-      before: (done) => {
-          child = (process.execPath, ctx.args, { 
-            env:   extend( extend({}, process.env), ctx.env || {}),
-            cwd:   ctx.cwd,
-            stdio: ["pipe","pipe", "pipe", "ipc"]
-          })
-      },
-      after: (done) => {
-      }
-    }
-}
+module.exports = require('mocha-e2e').exports(
+  { svc:  "bin/cli"
+  , args: ["-s","test/fixtures/petstore.oas.yaml","-l","debug"]
+  , readyNotice: "server started"
+//  , term_ipc: "IPCTERM"
+  , term_code: "SIGINT"
+  , term_timeout: 30000
+  , suites: 
+    [ "test-e2e/as-cli/{basePath}.docs.test.js"
+    ]
+  }
+)
