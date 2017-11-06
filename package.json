@@ -36,6 +36,7 @@
     "yargs": "^8.0.2"
   },
   "devDependencies": {
+    "e2e-helper": "^0.9.0",
     "env-pass": "^0.6.2",
     "istanbul": "0.x.x",
     "mocha": "~2.3.4",

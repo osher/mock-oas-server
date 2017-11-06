@@ -1,4 +1,4 @@
-module.exports = require('mocha-e2e').exports(
+module.exports = require('e2e-helper').exports(
   { svc:  "bin/cli"
   , args: ["-s","test/fixtures/petstore.oas.yaml","-l","debug"]
   , readyNotice: "server started"

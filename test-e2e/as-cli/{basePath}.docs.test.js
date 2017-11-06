@@ -15,9 +15,7 @@ module.exports =
         { 'content-type' : /text\/html/
         }
       , body: 
-        [ /<a id="logo" href="http:\/\/swagger.io">swagger<\/a>/
-        , /<form id='api_selector'>/
-        , /<body class="swagger-section">/
+        [ /<div id="swagger-ui"><\/div>/
         ]
       }
     )
