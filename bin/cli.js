@@ -15,28 +15,25 @@ log.debug('accepted args', args);
 const svr = require('../lib')({args, logger})
   .on('started', banners.up)
   .on('error', banners.error)
-  .on('fatal', err => { 
-      banners.fatal(err)
-      process.exit(1)
-  })
+  .on('fatal', shutdown('FATAL', 'fatal'))
 
-
-//process.on('SIGINT', shutdown('SIGINT'))
+process.on('SIGINT', shutdown('SIGINT'))
 process.on('SIGTERM', shutdown('SIGTERM'))
-process.on('message', m => { if ('IPCTERM' == m) shutdown('IPCTERM')() })
+process.on('message', m => 'IPCTERM' == m && shutdown('SIGINT')())
 
-function shutdown(signal) {
+function shutdown(signal, banner = 'bye') {
   return function handleSignal(err) {
-      if (process.shuttingDown) return
-      
-      banners.bye(signal)
+      banners[banner](signal)
       svr.close((err) => {
-          log[err ? 'error' : 'info']('server shutdown ', err || 'OK')
+          log[err ? /* istanbul ignore next */ 'error' : 'info']('server shutdown ', err || 'OK')
+          process.exit()
       })
-      setTimeout(
+      const timeout = setTimeout(
         () => {
-          //log.warn('server did not close timely - I had to kick it :(') 
-          //process.exit(1)
+          /* istanbul ignore next */
+          log.warn('server did not close timely - I had to kick it :(')
+          /* istanbul ignore next */
+          process.exit(1)
         }
       , args.shutdownGrace
       ).unref()

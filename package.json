@@ -6,6 +6,42 @@
   "bin": {
     "oas-svr": "bin/cli"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/osher/mock-oas-server.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osher/mock-oas-server/issues"
+  },
+  "homepage": "https://github.com/osher/mock-oas-server#mock-oas-server",
+  "dependencies": {
+    "debug": "^3.0.0",
+    "express": "^4.15.4",
+    "figlet": "^1.2.0",
+    "log4js": "^2.3.3",
+    "server-destroy": "^1.0.1",
+    "swagger-tools": "^0.10.1",
+    "sway": "^1.0.0",
+    "xml-js": "^1.6.2",
+    "yargs": "^10.0.3"
+  },
+  "devDependencies": {
+    "e2e-helper": "^0.9.1",
+    "env-pass": "^0.6.2",
+    "istanbul": "0.x.x",
+    "mocha": "^4.1.0",
+    "mocha-e2e": "git+https://github.com/osher/mocha-e2e.git",
+    "mocha-multi": "^0.11.0",
+    "mocha-ui-exports": "^1.0.1",
+    "mocha-ui-exports-request": "^2.1.0",
+    "should": "^13.2.0",
+    "sinon": "^4.1.3",
+    "wtfnode": "^0.5.7"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
   "scripts": {
     "test": "mocha",
     "e2e": "mocha test-e2e/index",
@@ -15,38 +51,5 @@
     "cover-combine": "istanbul report --root ./coverage --dir ./coverage/combined --format html",
     "cover": "npm run cover-unit && npm run cover-e2e && npm run cover-combine",
     "postcover": "node node_modules/istanbul/lib/cli.js check-coverage --lines 85 --function 85 --branches 80"
-  },
-  "repository": {
-    "type": "git",
-    "url": "http://gitlab:6020/osher/oas-mocker"
-  },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/osher/oas-mocker/issues"
-  },
-  "homepage": "https://github.com/osher/oas-mocker#readme",
-  "dependencies": {
-    "debug": "^3.0.0",
-    "express": "^4.15.4",
-    "figlet": "^1.2.0",
-    "log4js": "^2.3.3",
-    "server-destroy": "^1.0.1",
-    "swagger-tools": "^0.10.1",
-    "sway": "^1.0.0",
-    "yargs": "^8.0.2"
-  },
-  "devDependencies": {
-    "e2e-helper": "^0.9.0",
-    "env-pass": "^0.6.2",
-    "istanbul": "0.x.x",
-    "mocha": "~2.3.4",
-    "mocha-e2e": "git+https://github.com/osher/mocha-e2e.git",
-    "mocha-multi": "^0.11.0",
-    "mocha-ui-exports": "^1.0.1",
-    "mocha-ui-exports-request": "^1.2.0",
-    "should": "^11.2.1"
-  },
-  "publishConfig": {
-    "registry": "http://wm-npm.mobimate.com/"
   }
 }
