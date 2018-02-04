@@ -1,5 +1,6 @@
 const sway = require('sway')
 const sut = require('../lib/model/gen-mgr')
+const logger = { of: () => ({debug: () => null, info: () => null})};
 var oasApi;
 
 module.exports = 
@@ -15,7 +16,7 @@ module.exports =
   , 'when called with ioc bag' :
     { 'should return an initiated instance of cam-mgr model with 1 api: response(..)' :
       () => {
-          const mgr = sut({sway:oasApi})
+          const mgr = sut({sway:oasApi, logger})
           Should(mgr).be.an.Object()
             .have.property('response')
             .be.a.Function()
@@ -27,7 +28,7 @@ module.exports =
         let mgr
         let res
         return {
-          beforeAll: () => mgr = sut({sway:oasApi})
+          beforeAll: () => mgr = sut({sway:oasApi, logger})
         , '.response(key)':
           { 'when called with a key that represents a swagger operatio' :
             { 'and the operation does not define a success reply' : 'TBD'

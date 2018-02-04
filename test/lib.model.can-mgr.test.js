@@ -55,7 +55,9 @@ module.exports =
                   , getOperation: () => null
                   }
                 , logger: { of: () => (() => {}) }
-                , cans: { someOpId: {} }
+                , cans: { 
+                    someOpId: {}  //<-- cans[operation] -> should be an Array
+                  }
                 }
               , msg: /Invalid input passed to canMgr/
               }
@@ -74,7 +76,7 @@ module.exports =
           }, {})
       })
     }
-  , 'when invoked valid options {logger, sway}' :
+  , 'when invoked with valid options {logger, sway}' :
     block(() => {
         let ex
         let api
@@ -86,25 +88,36 @@ module.exports =
                     { getOperations: () => [] 
                     , getOperation: (key) => null
                     }
-                  , logger: { of: () => (() => {}) }
+                  , logger: { of: () => ({}) }
                   }
                 )
               } catch(x) { ex = x }
           }
         , 'should not fail' :
           () => Should.not.exist(ex)
-        , 'should return an initiated mgr instance with 2 apis: .response(..), and .set(..)' :
+        , 'should return an initiated mgr instance with 2 apis: .response(key), and .set(cans)' :
           () => Should(api).be.an.Object().have.properties(['response', 'set'])
         }
     })
-  , 'when invoked with valid options providing an initial can' :
+  , 'when invoked with valid options and an initial cans store' :
     block(() => {
         const mockOpId = 'some-operation'
         const mockResponse =
-          { type:     "text"
-          , status:   333
-          , headers:  { location: "http://go.over/there" }
-          , body:     "ok"
+          { type:         "text"
+          , status:       333
+          , headers:      { location: "http://go.over/there" }
+          , body:         "ok"
+          }
+        const mockSway =
+          { getOperations: () => [ { operationId: mockOpId } ]
+          , getOperation: (key) => key == mockKey ? { operationId: mockOpId } : null
+          }
+        const cans = 
+          { [mockOpId]: 
+            [ { times:    3
+              , response: mockResponse 
+              }
+            ]
           }
         let mgr
         let response
@@ -112,20 +125,15 @@ module.exports =
         return { 
           beforeAll: () => {
               mgr = sut(
-                { sway:
-                  { getOperations: () => [ { operationId: mockOpId } ]
-                  , getOperation: (key) => key == mockKey ? { operationId: mockOpId } : null
-                  }
+                { sway:   mockSway
                 , logger: { of: () => ({ debug: () => {} }) }
-                , cans: 
-                  { [mockOpId]: 
-                    [ { times: 3
-                      , response: mockResponse 
-                      }
-                    ]
-                  }
+                , cans
                 }
               )
+          }
+        , 'and .response(key) called with operation that deos not exists in the provided sway' :
+          { beforeAll: () => { response = mgr.response(null) }
+          , 'should return the response from the cans initiation': () => Should(response).be.Null()
           }
         , 'and .response(key) called with operation that exists in the provided sway' :
           { beforeAll: () => { response = mgr.response(mockKey) }
@@ -134,8 +142,8 @@ module.exports =
         }
     })
   , 'an initiated mgr insance' :
-    { '.set(cansDescr':
-      { 'once set with invalid canned-responses with' :
+    { '.set(cansDescr)':
+      { 'when set with invalid canned-responses with' :
         block(() => {
             let mgr
             const existingOpId = 'some-op-id'
@@ -241,6 +249,36 @@ module.exports =
                 return suite
             }, suite)
         })
+      , 'when set with valid canned-responses' :
+        { 'with a valid can with response.type:text': 
+          { 'should not fail': 'TBD'
+          , 'should accept the can': 'TBD'
+          }
+        , 'with a valid can with response.type:json': { 'TBD' : 'like prev' }
+        //, 'with a valid can with response.type:xml':  { 'TBD' : 'like prev' }
+        //, 'with a valid can with resposne.type:yaml': { 'TBD' : 'like prev' }
+        , 'with a valid can with times: <number>': { 'TBD' : 'like prev' }
+        , 'with a valid can with times: "Infinity" (as string)': { 'TBD' : 'like next' }
+        , 'with a valid can with times: Infinity (JS constant)':
+          { 'should not fail': 'TBD'
+          , 'should accept the can': 'TBD'
+          , 'can.times should be Infinity': 'TBD'
+          }
+        , 'with a valid can with params matcher': { 'TBD' : 'like prev' }
+          /* { times: 1
+             , response: { ... }
+             , params: 
+               { p1: "exact" --> { exact: ["exact"] }
+               , p2: /match/ --> { match: [/match/] }
+               , p3: [/match1/,/match2/] --> { match: [ /match1/, /match2/ ] }
+               , p4: { some: object } --> { eql: { some: object } }
+               , p5: { includes: { some: object } }
+               , p6: "`js-module:exported.path.to.predicate`"
+               , p7: function predicate(key) { return true|false }
+               }
+             }
+          */
+        }
       }
     , '.response(key)' :
       { 'when provided with key that does not match an operation' :
@@ -273,7 +311,7 @@ module.exports =
             }
         })
       , 'when provided with a key that matches an operation' : 
-        { 'and there is NO can set for this operation' :
+        { 'and there is NO cans set for this operation' :
           block(() => {
               let response
               let initCans
@@ -309,27 +347,31 @@ module.exports =
         , 'and there is a can set for this operation' :
           block(() => {
               const mockCannedResp = { status: 200, headers: {}, body: { ok: true }, type: "json" }
+              const cans = { 'twoTimesCan': 
+                [ { times: 2
+                  , response: mockCannedResp
+                  }
+                , { times: Infinity 
+                  , response: { status: 200, headers: {}, body: "OK", type: "text" }
+                  }
+                ]
+              }
+              const mockSway = { 
+                getOperations: () => [{ operationId: 'twoTimesCan' }]
+              , getOperation: (key) => ({ operationId: 'twoTimesCan' })
+              }
               let response
               let initCans
               let mgr
               return { 
                 beforeAll: () => {
                     mgr = sut(
-                      { sway:
-                        { getOperations: () => 
-                          [ { operationId: 'twoTimesCan' }
-                          ]
-                        , getOperation: (key) => ({ operationId: 'twoTimesCan' })
-                        }
-                      , logger: { of: () => ({ debug: () => {} }) }
+                      { sway: mockSway
+                      , logger: { of: () => ({ debug: () => {}, info: () => {} }) }
                       }
                     )
                     
-                    const err = mgr.set({ 'twoTimesCan': [ 
-                      { times: 2
-                      , response: mockCannedResp
-                      } 
-                    ]})
+                    const err = mgr.set(cans)
                     
                     if (err) { console.log(err.rejections[0]); throw err }
                     
@@ -346,9 +388,13 @@ module.exports =
                 , 'and the responder is used-up' :
                   { before: () => mgr.response({mock:'key'})
                   , 'should drop the responder from the can for this operation' :
-                    () => Should(mgr.set.cans.twoTimesCan).eql([])
+                    () => Should(mgr.set.cans.twoTimesCan).have.property('length', 1)
+                  }
+                , 'and the can is used up' :
+                  { before: () => mgr.response({mock:'key'})
                   }
                 }
+              , 'and there is no responder in the can': 'TBD  - should empty cans be already discarded?'
               }
           })        
         }
