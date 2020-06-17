@@ -1,0 +1,36 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.15.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:hoek:20180212':
+    - log4js > loggly > request > hawk > hoek:
+        patched: '2020-06-17T18:47:31.823Z'
+    - log4js > loggly > request > hawk > boom > hoek:
+        patched: '2020-06-17T18:47:31.823Z'
+    - log4js > loggly > request > hawk > sntp > hoek:
+        patched: '2020-06-17T18:47:31.823Z'
+    - log4js > loggly > request > hawk > cryptiles > boom > hoek:
+        patched: '2020-06-17T18:47:31.823Z'
+  SNYK-JS-LODASH-567746:
+    - swagger-tools > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+    - sway > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+    - log4js > hipchat-notifier > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+    - swagger-tools > async > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+    - swagger-tools > json-refs > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+    - log4js > mailgun-js > async > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+    - log4js > slack-node > requestretry > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+    - swagger-tools > json-refs > graphlib > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+    - sway > json-refs > graphlib > lodash:
+        patched: '2020-06-17T18:47:31.823Z'
+  'npm:tunnel-agent:20170305':
+    - log4js > loggly > request > tunnel-agent:
+        patched: '2020-06-17T18:47:31.823Z'
