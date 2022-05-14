@@ -24,7 +24,7 @@
     "swagger-tools": "^0.10.1",
     "sway": "^1.0.0",
     "xml-js": "^1.6.2",
-    "yargs": "^10.0.3"
+    "yargs": "^13.2.4"
   },
   "devDependencies": {
     "e2e-helper": "^0.9.1",
