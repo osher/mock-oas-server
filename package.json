@@ -22,7 +22,7 @@
     "log4js": "^2.3.3",
     "server-destroy": "^1.0.1",
     "swagger-tools": "^0.10.1",
-    "sway": "^1.0.0",
+    "sway": "^2.0.0",
     "xml-js": "^1.6.2",
     "yargs": "^10.0.3"
   },
